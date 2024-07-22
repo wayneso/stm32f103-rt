@@ -1,0 +1,2 @@
+# 使用MXCube生成基于stm32f103c8t6的MDK工程，植入rtthread-nano，finsh组件
+不断更新各种驱动组件直到rom或ram用尽
