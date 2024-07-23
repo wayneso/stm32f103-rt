@@ -23,6 +23,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include "rt_task.h"
 
 /**
  * 数据存储格式：
@@ -241,6 +242,34 @@ void OLED_Init(void)
 
 	OLED_Clear();  // 清空显存数组
 	OLED_Update(); // 更新显示，清屏，防止初始化后未显示内容时花屏
+	OLED_DrawRectangle(0,0,128,64,OLED_UNFILLED);
+  OLED_DrawLine(0,15,128,15);
+        OLED_DrawLine(0,48,128,48);
+        OLED_ShowString(2,4,"fan",OLED_6X8);
+
+        OLED_ShowString(30,4,"HI",OLED_6X8);
+        OLED_ShowString(50,4,"MID",OLED_6X8);
+        OLED_ShowString(75,4,"LOW",OLED_6X8);
+        OLED_ShowString(100,4,"AUTO",OLED_6X8);
+
+
+        OLED_ShowString(2,52,"mode",OLED_6X8);
+        OLED_ShowString(35,52,"COOL",OLED_6X8);
+        OLED_ShowString(65,52,"HOT",OLED_6X8);
+        OLED_ShowString(90,52,"SLEEP",OLED_6X8);
+
+        OLED_ShowString(8,23,"SET",OLED_6X8);
+        OLED_ShowString(5,33,"TEMP",OLED_6X8);
+
+        OLED_ShowNum(35, 23, Set_temp, 2, OLED_8X16);
+
+        OLED_ShowString(65,23,"HUMI",OLED_6X8);
+        OLED_ShowString(65,33,"TEMP",OLED_6X8);
+
+        OLED_ShowNum(100, 23, humi, 2, OLED_6X8);
+        OLED_ShowNum(100, 33, temp, 2,OLED_6X8);
+
+        OLED_Update();
 }
 
 /**

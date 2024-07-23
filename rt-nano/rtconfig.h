@@ -27,7 +27,7 @@
 #define RT_ALIGN_SIZE   4
 // <o>the max length of object name<2-16>
 //  <i>Default: 8
-#define RT_NAME_MAX    8
+#define RT_NAME_MAX    12
 // <c1>Using RT-Thread components initialization
 //  <i>Using RT-Thread components initialization
 #define RT_USING_COMPONENTS_INIT
@@ -74,7 +74,7 @@
 #endif
 // <o>The priority level of timer thread <0-31>
 //  <i>Default: 4
-#define RT_TIMER_THREAD_PRIO        10
+#define RT_TIMER_THREAD_PRIO        15
 // <o>The stack size of timer thread <0-8192>
 //  <i>Default: 512
 #define RT_TIMER_THREAD_STACK_SIZE  512
