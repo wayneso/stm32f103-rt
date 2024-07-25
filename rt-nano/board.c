@@ -133,7 +133,7 @@ int clock_information(void)
 
     return RT_EOK;
 }
-INIT_BOARD_EXPORT(clock_information);
+//INIT_BOARD_EXPORT(clock_information);
 
 
 void SysTick_Handler(void)

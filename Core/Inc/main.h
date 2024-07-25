@@ -31,6 +31,9 @@ extern "C" {
 #include "rtthread.h"
 
 extern volatile rt_uint8_t Set_temp;
+extern volatile rt_uint8_t Set_fan;
+extern volatile rt_uint8_t Set_mode;
+extern rt_uint8_t Set_nf;
 
 void SystemClock_Config(void);
 void Error_Handler(void);

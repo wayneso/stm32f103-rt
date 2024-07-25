@@ -14,6 +14,7 @@ ALIGN(RT_ALIGN_SIZE)
 #define oled_priority           20
 #define dht11_priority          25
 
+
 // 定义任务堆栈     
 static char sample_tasl_stack[256];
 static char oled_task_stack[256];
@@ -65,16 +66,22 @@ int sample(void)
 // OLED任务入口函数
 static void oled_task_entry(void *param)
 {
-    while (1)
-    {
-				OLED_ClearArea(100,23,15,25);
-        OLED_ShowNum(100, 23, humi, 2, OLED_6X8);
-        OLED_ShowNum(100, 33, temp, 2,OLED_6X8);
-				OLED_UpdateArea(100,23,15,25);
-			
-        rt_thread_mdelay(500);
-    }
+		if(Set_nf == 1)
+		{
+			while (1)
+			{
+					OLED_ClearArea(100,23,15,25);
+					OLED_ShowNum(100, 23, humi, 2, OLED_6X8);
+					OLED_ShowNum(100, 33, temp, 2,OLED_6X8);
+					OLED_UpdateArea(100,23,15,25);
+				
+					rt_thread_mdelay(1000);
+			}
+		}
+
+		
 }
+
 
 // 创建OLED任务
 int oled_task(void)

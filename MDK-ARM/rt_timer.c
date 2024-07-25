@@ -9,7 +9,7 @@
 
 
 static struct rt_timer key_timer;  // 定义按键定时器
-static struct rt_timer oled_timer;
+struct rt_timer sleep_timer;
 
 
 // 按键定时器回调函数
@@ -19,10 +19,14 @@ static void key_timer_callback(void *parameter)
 }
 
 // 屏幕定时器回调函数
-static void oled_timer_callback(void *parameter)
+static void sleep_timer_callback(void *parameter)
 {
-    OLED_Update();
-}
+   if(Set_nf == 0)
+		{
+				OLED_Clear();
+				OLED_Update();
+		}
+}	
 
 int timer_task(void)
 {
@@ -31,18 +35,17 @@ int timer_task(void)
                   key_timer_callback,
                   0,
                   10,
-                  RT_TIMER_FLAG_PERIODIC);  // 初始化按键定时器
+                  RT_TIMER_FLAG_PERIODIC);  
 
 
-    rt_timer_init(&oled_timer,
-                  "oled_timer",
-                  oled_timer_callback,
+    rt_timer_init(&sleep_timer,
+                  "sleep_timer",
+                  sleep_timer_callback,
                   0,
-                  100,
-                  RT_TIMER_FLAG_PERIODIC);  // 初始化屏幕定时器
+                  3000,
+                  RT_TIMER_FLAG_ONE_SHOT);  
 
-    rt_timer_start(&key_timer);  // 启动按键定时器
-    //rt_timer_start(&oled_timer);  // 启动屏幕定时器
+    rt_timer_start(&key_timer);  
     return 0;
 }
 

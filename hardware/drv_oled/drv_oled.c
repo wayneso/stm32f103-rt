@@ -24,7 +24,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include "rt_task.h"
-
+#include "rt_timer.h"
+#include "drv_key.h"
 /**
  * 数据存储格式：
  * 纵向8点，高位在下，先从左到右，再从上到下
@@ -246,17 +247,10 @@ void OLED_Init(void)
   OLED_DrawLine(0,15,128,15);
         OLED_DrawLine(0,48,128,48);
         OLED_ShowString(2,4,"fan",OLED_6X8);
-
-        OLED_ShowString(30,4,"HI",OLED_6X8);
-        OLED_ShowString(50,4,"MID",OLED_6X8);
-        OLED_ShowString(75,4,"LOW",OLED_6X8);
-        OLED_ShowString(100,4,"AUTO",OLED_6X8);
-
+				OLED_ShowString(100,4,"AUTO",OLED_6X8);
 
         OLED_ShowString(2,52,"mode",OLED_6X8);
         OLED_ShowString(35,52,"COOL",OLED_6X8);
-        OLED_ShowString(65,52,"HOT",OLED_6X8);
-        OLED_ShowString(90,52,"SLEEP",OLED_6X8);
 
         OLED_ShowString(8,23,"SET",OLED_6X8);
         OLED_ShowString(5,33,"TEMP",OLED_6X8);
@@ -1555,6 +1549,56 @@ void OLED_DrawArc(uint8_t X, uint8_t Y, uint8_t Radius, int16_t StartAngle, int1
 	}
 }
 
+void OLED_wakeup(void)
+{
+	rt_timer_start(&sleep_timer);
+	OLED_Clear();  // 清空显存数组
+	OLED_DrawRectangle(0,0,128,64,OLED_UNFILLED);
+	OLED_DrawLine(0,15,128,15);
+	OLED_DrawLine(0,48,128,48);
+	OLED_ShowString(2,4,"fan",OLED_6X8);
+	switch(Set_fan)
+				{
+					case HIGH:
+						OLED_ShowString(30,4,"HI",OLED_6X8);
+						break;
+					case MID:
+						OLED_ShowString(50,4,"MID",OLED_6X8);
+						break;
+					case LOW:
+						OLED_ShowString(75,4,"LOW",OLED_6X8);
+						break;
+					case AUTO:
+						OLED_ShowString(100,4,"AUTO",OLED_6X8);
+						break;
+					};	
+	
+	OLED_ShowString(2,52,"mode",OLED_6X8);
+					
+	switch(Set_mode)
+				{
+					case COOL:
+						OLED_ShowString(35,52,"COOL",OLED_6X8);
+						break;
+					case HOT:
+						OLED_ShowString(65,52,"AIR SUPPLY",OLED_6X8);
+						break;
+					case SLEEP:
+						OLED_ShowString(90,52,"SLEEP",OLED_6X8);
+						break;
+
+				};	
+	OLED_ShowString(8,23,"SET",OLED_6X8);
+	OLED_ShowString(5,33,"TEMP",OLED_6X8);
+	OLED_ShowNum(35, 23, Set_temp, 2, OLED_8X16);
+	OLED_ShowString(65,23,"HUMI",OLED_6X8);
+	OLED_ShowString(65,33,"TEMP",OLED_6X8);
+	OLED_ShowNum(100, 23, humi, 2, OLED_6X8);
+	OLED_ShowNum(100, 33, temp, 2,OLED_6X8);
+	OLED_Update();
+}
+
+	
 /*********************功能函数*/
 
 /*****************江协科技|版权所有****************/

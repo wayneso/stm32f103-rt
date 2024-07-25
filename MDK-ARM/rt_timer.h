@@ -11,6 +11,10 @@ extern "C" {
 #include <drv_oled.h>
 #include "drv_dht11.h"
 
+
+
+extern struct rt_timer sleep_timer;
+
 int timer_task(void);
 
 #ifdef __cplusplus

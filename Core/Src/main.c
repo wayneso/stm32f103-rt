@@ -34,6 +34,9 @@
 
 
 volatile rt_uint8_t Set_temp = 26;
+volatile rt_uint8_t Set_fan;
+volatile rt_uint8_t Set_mode;
+rt_uint8_t Set_nf = 1;
 
 
 
